@@ -3,104 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caixa Jovens Sagrados</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Caixa Jovens Sagrados - 2 Caixas</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
-            min-height: 100vh;
-        }
-
-        /* Tela de configuração inicial */
-        .config-screen {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .config-screen h1 {
-            color: #C62828;
-            margin-bottom: 10px;
-        }
-
-        .config-screen p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .config-screen input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 14px;
-            font-family: monospace;
-        }
-
-        .config-screen input:focus {
-            outline: none;
-            border-color: #C62828;
-        }
-
-        .config-screen button {
-            background: #C62828;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        .config-screen button:hover {
-            background: #8E0000;
-        }
-
-        .info-box {
-            background: #FFF3E0;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: left;
-            font-size: 12px;
-            color: #E65100;
-        }
-
-        .info-box code {
-            background: #FFF;
-            padding: 2px 5px;
-            border-radius: 5px;
-            font-family: monospace;
-        }
-
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 50px;
-            font-size: 18px;
-            color: #C62828;
-        }
-
-        /* O resto do CSS do sistema */
         :root {
             --vermelho: #C62828;
             --vermelho-escuro: #8E0000;
@@ -113,20 +17,17 @@
             --cinza-borda: #DDD;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: var(--gelo); color: var(--texto); }
+
         .header { background: var(--vermelho); color: white; padding: 25px; text-align: center; border-bottom: 5px solid var(--vermelho-escuro); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        
-        /* ========== ÁREA DA LOGO - COLOQUE SUA LOGO AQUI ========== */
-        .logo-box { width: 100px; height: 100px; background: white; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; border: 3px solid var(--vermelho-escuro); overflow: hidden; }
+        .logo-box { width: 90px; height: 90px; background: white; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; border: 3px solid var(--vermelho-escuro); }
         .logo-text { font-size: 40px; font-weight: bold; color: var(--vermelho); }
-        .logo-img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        /* ========================================================= */
-        
-        .header h1 { font-size: 24px; margin-top: 5px; }
-        .header p { font-size: 14px; opacity: 0.9; margin-top: 5px; }
 
         .container { max-width: 1400px; margin: 20px auto; padding: 0 20px; }
         
-        .caixa-selector { display: flex; gap: 20px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
+        /* Seleção de Caixa */
+        .caixa-selector { display: flex; gap: 20px; margin-bottom: 20px; justify-content: center; }
         .caixa-btn { flex: 1; max-width: 300px; padding: 20px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .caixa-btn.caixa1 { background: #E3F2FD; color: var(--azul); border: 2px solid var(--azul); }
         .caixa-btn.caixa1.active { background: var(--azul); color: white; box-shadow: 0 4px 15px rgba(21,101,192,0.3); }
@@ -177,8 +78,7 @@
             body { background: white !important; color: black !important; }
             .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
             .main-content { box-shadow: none !important; border: none !important; padding: 0 !important; }
-            .print-header { display: flex !important; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px; }
-            .print-title { text-align: right; }
+            .print-header { display: flex !important; align-items: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px; }
             .section-title { background: #EEE !important; padding: 8px; font-weight: bold; border: 1px solid #000; margin: 20px 0 10px 0; }
             table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
             th, td { border: 1px solid #000; padding: 8px; text-align: left; font-size: 11px; }
@@ -193,6 +93,7 @@
         .tab-panel.active { display: block; }
         
         .empty-cart { text-align: center; color: #999; padding: 30px; }
+        .reset-btn { margin-top: 60px; background: #D32F2F; color: white; width: 100%; padding: 15px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; font-size: 16px; }
         
         .config-grid { display: grid; grid-template-columns: 1fr auto auto auto; gap: 10px; align-items: center; background: #fdf2f2; padding: 20px; border-radius: 12px; margin-top: 15px; }
         @media (max-width: 800px) { .config-grid { grid-template-columns: 1fr; } }
@@ -218,254 +119,444 @@
         .caixa-indicator { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
         .caixa1-color { background: var(--azul); }
         .caixa2-color { background: var(--laranja); }
-        
-        .loading { text-align: center; padding: 50px; font-size: 18px; color: var(--vermelho); }
-        
-        .btn-limpar-config {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #999;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            cursor: pointer;
-            z-index: 1000;
-        }
-        .btn-limpar-config:hover {
-            background: #666;
-        }
     </style>
 </head>
 <body>
 
-<!-- TELA DE CONFIGURAÇÃO INICIAL -->
-<div id="configScreen" class="config-screen">
-    <h1>🙏 JOVENS SAGRADOS</h1>
-    <p>Pastoral da Juventude - Sistema de 2 Caixas</p>
-    
-    <div class="info-box">
-        📌 <strong>Suas credenciais já estão pré-preenchidas!</strong><br><br>
-        Clique em "CONECTAR AO SUPABASE" para começar.<br><br>
-        ⚠️ <strong>Importante:</strong> Antes de usar, execute o SQL no Supabase para criar as tabelas!
-    </div>
-
-    <input type="text" id="supabaseUrl" placeholder="https://seuprojeto.supabase.co" value="https://uxflpjqhevztholrsjiy.supabase.co">
-    <input type="text" id="supabaseKey" placeholder="SUA_CHAVE_ANON_PUBLIC" value="sb_publishable_f7RDPvtWmxMwxk2SuZf3dQ_qX-zPdB0">
-    
-    <button onclick="salvarConfig()">🚀 CONECTAR AO SUPABASE</button>
+<div class="header no-print">
+    <div class="logo-box">
+    <img src="wgkmTfD - Imgur.png" alt="Logo Jovens Sagrados" style="width: 70px; height: auto; border-radius: 50%;">
+</div>
+    <h1>JOVENS SAGRADOS</h1>
+    <p>PASTORAL DA JUVENTUDE - SISTEMA DE 2 CAIXAS</p>
 </div>
 
-<!-- ÁREA DO SISTEMA (só aparece após configurar) -->
-<div id="systemArea" style="display: none; width: 100%;"></div>
+<div class="container">
+    <!-- Seleção de Caixa -->
+    <div class="caixa-selector no-print" id="caixaSelector">
+        <button class="caixa-btn caixa1" onclick="selecionarCaixa(1)">🏧 CAIXA 01</button>
+        <button class="caixa-btn caixa2" onclick="selecionarCaixa(2)">🏧 CAIXA 02</button>
+    </div>
+
+    <!-- Login Area -->
+    <div id="loginArea" class="main-content no-print" style="text-align: center; min-height: auto;">
+        <h2 id="loginTitle">Identificação do Caixa 01</h2>
+        <input type="text" id="operadorNome" placeholder="Nome do Responsável" style="width: 100%; max-width: 300px; padding: 15px; margin: 20px 0; border-radius: 8px; border: 1px solid #CCC; font-size: 16px;">
+        <br>
+        <button onclick="iniciarCaixa()" style="background: var(--vermelho); color: white; border: none; padding: 15px 50px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;">ABRIR CAIXA</button>
+    </div>
+
+    <!-- Área do Caixa (será duplicada dinamicamente) -->
+    <div id="caixaArea" style="display: none;"></div>
+</div>
+
+<!-- Modal de Edição -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h3>✏️ Editar Item</h3>
+        <input type="text" id="editNome" placeholder="Nome">
+        <input type="number" id="editPreco" placeholder="Preço" step="0.01">
+        <select id="editTipo">
+            <option value="normal">Produto Normal</option>
+            <option value="ticket">Dá direito a Ticket</option>
+        </select>
+        <div class="modal-buttons">
+            <button class="btn-save" onclick="salvarEdicao()">💾 SALVAR</button>
+            <button class="btn-cancel" onclick="fecharModal()">CANCELAR</button>
+        </div>
+    </div>
+</div>
 
 <script>
-    // Credenciais já estão nos inputs - só precisa clicar no botão
+    // Configuração global compartilhada entre os caixas
+    let cardapio = [
+        { id: 1, nome: "FEIJOADA", preco: 25.00, tipo: "ticket" },
+        { id: 2, nome: "Refrigerante", preco: 6.00, tipo: "normal" },
+        { id: 3, nome: "Cerveja Lata", preco: 8.00, tipo: "normal" },
+        { id: 4, nome: "Água Mineral", preco: 4.00, tipo: "normal" },
+        { id: 5, nome: "Suco Natural", preco: 7.00, tipo: "normal" },
+        { id: 6, nome: "Pastel", preco: 10.00, tipo: "normal" }
+    ];
     
-    function salvarConfig() {
-        let url = document.getElementById('supabaseUrl').value.trim();
-        let key = document.getElementById('supabaseKey').value.trim();
-        
-        // Garantir que a URL comece com https://
-        if (!url.startsWith('http://') && !url.startsWith('https://')) {
-            url = 'https://' + url;
-        }
-        
-        if (!url || !key) {
-            alert("❌ Preencha a URL e a chave do Supabase!");
-            return;
-        }
-        
-        // Salvar no localStorage
-        localStorage.setItem('supabase_url', url);
-        localStorage.setItem('supabase_key', key);
-        
-        conectarSupabase(url, key);
-    }
-    
-    async function conectarSupabase(url, key) {
-        // Esconder tela de config e mostrar loading
-        document.getElementById('configScreen').style.display = 'none';
-        document.getElementById('systemArea').style.display = 'block';
-        document.getElementById('systemArea').innerHTML = '<div class="loading">🔄 Conectando ao Supabase e carregando sistema...</div>';
-        
-        try {
-            const supabase = window.supabase.createClient(url, key);
-            
-            // Testar conexão
-            const { error } = await supabase.from('cardapio').select('count', { count: 'exact', head: true });
-            
-            if (error) {
-                throw new Error(`Erro de conexão: ${error.message}\n\nVerifique se as tabelas foram criadas no Supabase!`);
-            }
-            
-            // Se deu certo, carregar o sistema completo
-            carregarSistemaCompleto(supabase);
-            
-        } catch (err) {
-            alert(err.message);
-            document.getElementById('configScreen').style.display = 'block';
-            document.getElementById('systemArea').style.display = 'none';
-            document.getElementById('systemArea').innerHTML = '';
-        }
-    }
-    
-    function carregarSistemaCompleto(supabase) {
-        // Carregar o HTML do sistema
-        const systemHtml = `
-            <div class="header no-print">
-                <!-- ========== ÁREA DA LOGO - COLOQUE SUA LOGO AQUI ========== -->
-                <div class="logo-box" id="logoBox">
-                    <div class="logo-text">JS</div>
-                    <img class="logo-img" id="logoImg" src="" alt="Logo" style="display: none;">
-                </div>
-                <!-- ========================================================= -->
-                <h1>JOVENS SAGRADOS</h1>
-                <p>PASTORAL DA JUVENTUDE - SISTEMA DE 2 CAIXAS</p>
-            </div>
-            
-            <div class="container">
-                <div class="stats no-print">
-                    <div class="stat-card">🎫 Tickets Vendidos: <b id="dashVendidos">0</b></div>
-                    <div class="stat-card">📦 Tickets Restantes: <b id="dashRestantes">300</b></div>
-                    <div class="stat-card">👥 Status: <b id="dashUser">--</b></div>
-                </div>
-
-                <div class="caixa-selector no-print" id="caixaSelector">
-                    <button class="caixa-btn caixa1" onclick="selecionarCaixa(1)">🏧 CAIXA 01</button>
-                    <button class="caixa-btn caixa2" onclick="selecionarCaixa(2)">🏧 CAIXA 02</button>
-                </div>
-
-                <div id="loginArea" class="main-content no-print" style="text-align: center; min-height: auto;">
-                    <h2 id="loginTitle">Identificação do Caixa 01</h2>
-                    <input type="text" id="operadorNome" placeholder="Nome do Responsável" style="width: 100%; max-width: 300px; padding: 15px; margin: 20px 0; border-radius: 8px; border: 1px solid #CCC; font-size: 16px;">
-                    <br>
-                    <button onclick="iniciarCaixa()" style="background: var(--vermelho); color: white; border: none; padding: 15px 50px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px;">ABRIR CAIXA</button>
-                </div>
-
-                <div id="caixaArea" style="display: none;"></div>
-            </div>
-            
-            <div id="editModal" class="modal">
-                <div class="modal-content">
-                    <h3>✏️ Editar Item</h3>
-                    <input type="text" id="editNome" placeholder="Nome" style="width:100%; padding:10px; margin:10px 0;">
-                    <input type="number" id="editPreco" placeholder="Preço" step="0.01" style="width:100%; padding:10px; margin:10px 0;">
-                    <select id="editTipo" style="width:100%; padding:10px; margin:10px 0;">
-                        <option value="normal">Produto Normal</option>
-                        <option value="ticket">Dá direito a Ticket</option>
-                    </select>
-                    <div class="modal-buttons">
-                        <button class="btn-save" onclick="salvarEdicao()">💾 SALVAR</button>
-                        <button class="btn-cancel" onclick="fecharModal()">CANCELAR</button>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="btn-limpar-config no-print" onclick="limparConfig()">🔄 Trocar Configuração</button>
-        `;
-        
-        document.getElementById('systemArea').innerHTML = systemHtml;
-        
-        // Inicializar o sistema com o Supabase
-        inicializarSistema(supabase);
-    }
-    
-    // Variáveis globais do sistema
-    let cardapio = [];
+    // Estado global compartilhado
     let ticketsVendido = new Array(301).fill(false);
+    let todasVendas = []; // Histórico de todas as vendas (ambos caixas)
+    let nextId = 7;
+    let editandoId = null;
+    
+    // Estado de cada caixa
     let caixas = {
         1: { ativo: false, operador: "", carrinho: [], vendas: [] },
         2: { ativo: false, operador: "", carrinho: [], vendas: [] }
     };
+    
+    let caixaAtual = 1;
     let caixaSelecionado = 1;
-    let editandoId = null;
-    let supabaseClient = null;
-    
-    async function inicializarSistema(supabase) {
-        supabaseClient = supabase;
-        await carregarTudo();
-    }
-    
-    async function carregarCardapio() {
-        const { data, error } = await supabaseClient.from('cardapio').select('*').order('id');
-        if (error) {
-            console.error("Erro ao carregar cardápio:", error);
-            return [];
+
+    function selecionarCaixa(numero) {
+        caixaSelecionado = numero;
+        document.querySelectorAll('.caixa-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.caixa-btn.caixa${numero}`).classList.add('active');
+        
+        // Atualizar título do login
+        document.getElementById('loginTitle').innerHTML = `Identificação do Caixa 0${numero}`;
+        
+        // Se o caixa já está ativo, mostrar a área dele
+        if (caixas[numero].ativo) {
+            mostrarCaixa(numero);
+        } else {
+            document.getElementById('loginArea').style.display = 'block';
+            document.getElementById('caixaArea').style.display = 'none';
+            document.getElementById('caixaArea').innerHTML = '';
         }
-        return data;
     }
-    
-    async function carregarTickets() {
-        const { data, error } = await supabaseClient.from('tickets').select('numero, vendido');
-        if (error) {
-            console.error("Erro ao carregar tickets:", error);
-            return;
-        }
-        const novoStatus = new Array(301).fill(false);
-        data.forEach(ticket => { if (ticket.vendido) novoStatus[ticket.numero] = true; });
-        ticketsVendido = novoStatus;
-    }
-    
-    async function carregarVendas() {
-        const { data: vendas, error: errVendas } = await supabaseClient.from('vendas').select('*').order('data_venda', { ascending: false });
-        if (errVendas) {
-            console.error("Erro ao carregar vendas:", errVendas);
+
+    function iniciarCaixa() {
+        let operador = document.getElementById('operadorNome').value.trim();
+        if(!operador) {
+            alert("Digite seu nome!");
             return;
         }
         
-        caixas[1].vendas = [];
-        caixas[2].vendas = [];
+        caixas[caixaSelecionado].ativo = true;
+        caixas[caixaSelecionado].operador = operador;
         
-        for (let venda of vendas) {
-            const { data: itens, error: errItens } = await supabaseClient.from('venda_itens').select('*').eq('venda_id', venda.id);
-            if (errItens) continue;
-            
-            const vendaCompleta = {
-                id: venda.id,
-                caixa: venda.caixa,
-                operador: venda.operador,
-                hora: new Date(venda.data_venda).toLocaleTimeString(),
-                data: new Date(venda.data_venda).toLocaleDateString(),
-                metodo: venda.metodo,
-                valor: venda.valor_total,
-                itensObj: itens.map(item => ({
-                    nome: item.item_nome,
-                    preco: item.item_preco,
-                    tipo: item.item_tipo,
-                    ticketNum: item.ticket_numero
-                })),
-                itens: itens.map(item => item.ticket_numero ? `${item.item_nome} #${item.ticket_numero}` : item.item_nome).join(', ')
-            };
-            caixas[venda.caixa].vendas.push(vendaCompleta);
-        }
+        mostrarCaixa(caixaSelecionado);
     }
-    
-    async function carregarTudo() {
-        mostrarLoading(true);
-        cardapio = await carregarCardapio();
-        await carregarTickets();
-        await carregarVendas();
-        mostrarLoading(false);
+
+    function mostrarCaixa(numero) {
+        document.getElementById('loginArea').style.display = 'none';
+        document.getElementById('caixaArea').style.display = 'block';
+        
+        // Renderizar a interface do caixa específico
+        renderizarInterfaceCaixa(numero);
         atualizarStatsGlobais();
     }
-    
-    function mostrarLoading(show) {
-        let loader = document.getElementById('loadingIndicator');
-        if (show && !loader) {
-            const div = document.createElement('div');
-            div.id = 'loadingIndicator';
-            div.className = 'loading';
-            div.innerHTML = '🔄 Carregando dados do Supabase...';
-            document.querySelector('.container').prepend(div);
-        } else if (!show && loader) {
-            loader.remove();
+
+    function renderizarInterfaceCaixa(numero) {
+        const container = document.getElementById('caixaArea');
+        const caixa = caixas[numero];
+        const cor = numero === 1 ? 'azul' : 'laranja';
+        const corBg = numero === 1 ? '#E3F2FD' : '#FFF3E0';
+        
+        container.innerHTML = `
+            <div style="background: ${corBg}; padding: 10px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span class="caixa-indicator caixa${numero}-color"></span>
+                    <strong>CAIXA 0${numero} - Operador: ${caixa.operador}</strong>
+                </div>
+                <button onclick="fecharCaixa(${numero})" style="background: #999; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">🔒 FECHAR CAIXA</button>
+            </div>
+            
+            <div class="tabs no-print">
+                <button class="tab-btn active" onclick="showTabCaixa(${numero}, 'venda', this)">🛒 VENDER</button>
+                <button class="tab-btn" onclick="showTabCaixa(${numero}, 'tickets', this)">🎫 VER TICKETS</button>
+                <button class="tab-btn" onclick="showTabCaixa(${numero}, 'relatorio', this)">📊 RELATÓRIO</button>
+                <button class="tab-btn" onclick="showTabCaixa(${numero}, 'config', this)">⚙️ CARDÁPIO</button>
+            </div>
+
+            <div class="main-content">
+                <div id="venda_${numero}" class="tab-panel active">
+                    <div class="venda-grid">
+                        <div>
+                            <h3 style="margin-bottom: 15px;">🍽️ Selecione o Item:</h3>
+                            <div id="gridItens_${numero}" class="grid-itens"></div>
+                        </div>
+                        <div class="cart-box">
+                            <h3>📋 Pedido Atual</h3>
+                            <div id="cartItems_${numero}" style="margin-top: 15px; min-height: 100px;"></div>
+                            
+                            <div style="margin-top: 20px;">
+                                <label style="font-size: 12px; font-weight: bold;">💳 PAGAMENTO:</label>
+                                <select id="payMetodo_${numero}" style="width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; font-weight: bold;">
+                                    <option value="PIX">💠 PIX</option>
+                                    <option value="DINHEIRO">💵 DINHEIRO</option>
+                                    <option value="CARTÃO">💳 CARTÃO</option>
+                                </select>
+                            </div>
+                            <div class="total-display" id="displayTotal_${numero}">R$ 0,00</div>
+                            <button class="btn-finalizar" id="btnConfirmar_${numero}" onclick="finalizarVenda(${numero})" disabled>CONFIRMAR VENDA</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tickets_${numero}" class="tab-panel">
+                    <h3>🎫 Controle de Tickets (1 a 300)</h3>
+                    <div class="info-box">
+                        💡 <strong>Informação:</strong> Tickets em <span style="color: ${numero === 1 ? '#1565C0' : '#E65100'}">azul/laranja</span> estão reservados no seu caixa.<br>
+                        Tickets em vermelho já foram vendidos (por qualquer caixa).
+                    </div>
+                    <div class="tickets-grid" id="ticketsGrid_${numero}"></div>
+                </div>
+
+                <div id="relatorio_${numero}" class="tab-panel">
+                    <div class="print-header">
+                       <img src="wgkmTfD - Imgur.png" alt="Logo" style="height: 50px;">
+                        <div class="print-header-info">
+                            <h2>JOVENS SAGRADOS - PASTORAL DA JUVENTUDE</h2>
+                            <p>Relatório de Prestação de Contas - Caixa 0${numero}</p>
+                            <p id="printData_${numero}"></p>
+                        </div>
+                    </div>
+
+                    <div class="no-print" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <h3>📈 Balanço do Caixa 0${numero}</h3>
+                        <button onclick="imprimirRelatorio(${numero})" style="background: #333; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer;">🖨️ IMPRIMIR</button>
+                    </div>
+
+                    <div class="resumo-caixa">
+                        <div><b>💠 PIX</b><br><span id="rPix_${numero}">R$ 0,00</span></div>
+                        <div><b>💵 DINHEIRO</b><br><span id="rDin_${numero}">R$ 0,00</span></div>
+                        <div><b>💳 CARTÃO</b><br><span id="rCar_${numero}">R$ 0,00</span></div>
+                        <div style="background: #EEE;"><b>💰 TOTAL</b><br><b id="rTot_${numero}">R$ 0,00</b></div>
+                    </div>
+
+                    <div class="section-title">1. Resumo de Vendas por Item</div>
+                    <table style="width:100%; border-collapse: collapse;">
+                        <thead><tr><th>Item</th><th>Quantidade</th><th>Subtotal</th></tr></thead>
+                        <tbody id="listaItensRel_${numero}"></tbody>
+                    </table>
+
+                    <div class="section-title">2. Tickets Vendidos (por este caixa)</div>
+                    <table style="width:100%; border-collapse: collapse;">
+                        <thead><tr><th>Total de Tickets</th><th>Valor Total</th></tr></thead>
+                        <tbody id="ticketsRelatorio_${numero}"></tbody>
+                    </table>
+
+                    <div class="section-title">3. Histórico de Vendas</div>
+                    <div id="historicoVendas_${numero}" style="margin-top: 15px;"></div>
+
+                    <div class="footer-assinaturas">
+                        <div class="assinatura-linha">Responsável: ${caixa.operador}</div>
+                        <div class="assinatura-linha">Visto da Coordenação</div>
+                    </div>
+                </div>
+
+                <div id="config_${numero}" class="tab-panel no-print">
+                    <h3>⚙️ Gerenciar Cardápio</h3>
+                    <div class="config-grid">
+                        <input type="text" id="cNome" placeholder="Nome do produto">
+                        <input type="number" id="cPreco" placeholder="Preço R$" step="0.01">
+                        <select id="cTipo">
+                            <option value="normal">Produto Normal</option>
+                            <option value="ticket">Dá direito a Ticket</option>
+                        </select>
+                        <button onclick="addCardapioGlobal()">➕ ADICIONAR</button>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h4>📋 Cardápio Atual:</h4>
+                        <div id="listCardapio_${numero}" style="margin-top: 15px;"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Renderizar componentes específicos do caixa
+        renderCardapioCaixa(numero);
+        renderListaCardapioCaixa(numero);
+        renderTicketsGridCaixa(numero);
+        atualizarCarrinhoCaixa(numero);
+        atualizarRelatorioCaixa(numero);
+    }
+
+    function renderCardapioCaixa(numero) {
+        const grid = document.getElementById(`gridItens_${numero}`);
+        if (!grid) return;
+        
+        grid.innerHTML = cardapio.map((item) => `
+            <div class="item-card" onclick="adicionarAoCarrinho(${numero}, ${item.id})">
+                <div class="item-emoji">${item.tipo === 'ticket' ? '🍲' : '🥤'}</div>
+                <div class="item-nome">${item.nome}</div>
+                <div class="item-preco">R$ ${item.preco.toFixed(2)}</div>
+                ${item.tipo === 'ticket' ? '<div class="item-badge">🎫 Inclui Ticket</div>' : ''}
+            </div>
+        `).join('');
+    }
+
+    function renderTicketsGridCaixa(numero) {
+        const grid = document.getElementById(`ticketsGrid_${numero}`);
+        if (!grid) return;
+        
+        let html = '';
+        for (let i = 1; i <= 300; i++) {
+            const isSold = ticketsVendido[i];
+            const isInCaixa1 = caixas[1].carrinho.some(item => item.ticketNum === i);
+            const isInCaixa2 = caixas[2].carrinho.some(item => item.ticketNum === i);
+            let statusClass = 'ticket-available';
+            let statusText = `${i}`;
+            let acao = '';
+            
+            if (isSold) {
+                statusClass = 'ticket-sold';
+                statusText = `❌ ${i}`;
+                acao = '';
+            } else if (isInCaixa1 && numero === 1) {
+                statusClass = 'ticket-selected-caixa1';
+                statusText = `🛒 ${i}`;
+                acao = `onclick="removerDoCarrinhoPorTicket(${numero}, ${i})" title="Clique para remover do carrinho"`;
+            } else if (isInCaixa2 && numero === 2) {
+                statusClass = 'ticket-selected-caixa2';
+                statusText = `🛒 ${i}`;
+                acao = `onclick="removerDoCarrinhoPorTicket(${numero}, ${i})" title="Clique para remover do carrinho"`;
+            } else if (isInCaixa1 || isInCaixa2) {
+                statusClass = 'ticket-sold';
+                statusText = `🔒 ${i}`;
+                acao = '';
+            } else {
+                acao = `onclick="adicionarTicketAvulso(${numero}, ${i})" title="Clique para vender este ticket"`;
+            }
+            
+            html += `<div class="ticket-number ${statusClass}" ${acao}>${statusText}</div>`;
+        }
+        grid.innerHTML = html;
+    }
+
+    function adicionarAoCarrinho(numero, itemId) {
+        const item = cardapio.find(i => i.id === itemId);
+        if (!item) return;
+
+        if (item.tipo === 'ticket') {
+            let ticketNumero = prompt(`🍲 ${item.nome} - DIGITE O NÚMERO DO TICKET (1 a 300):`);
+            if (ticketNumero === null) return;
+            
+            const num = parseInt(ticketNumero);
+            if (isNaN(num) || num < 1 || num > 300) {
+                alert("❌ Número inválido!");
+                return;
+            }
+            
+            if (ticketsVendido[num]) {
+                alert(`❌ Ticket #${num} JÁ FOI VENDIDO!`);
+                return;
+            }
+            
+            // Verificar se está no carrinho do outro caixa
+            const outroCaixa = numero === 1 ? 2 : 1;
+            if (caixas[outroCaixa].carrinho.some(item => item.ticketNum === num)) {
+                alert(`❌ Ticket #${num} está reservado no outro caixa!`);
+                return;
+            }
+            
+            if (caixas[numero].carrinho.some(item => item.ticketNum === num)) {
+                alert(`❌ Ticket #${num} já está no carrinho!`);
+                return;
+            }
+            
+            caixas[numero].carrinho.push({
+                id: Date.now() + Math.random() + num,
+                nome: item.nome,
+                preco: item.preco,
+                ticketNum: num,
+                tipo: 'ticket'
+            });
+            
+            renderTicketsGridCaixa(numero);
+            atualizarCarrinhoCaixa(numero);
+            alert(`✅ ${item.nome} adicionada! Ticket #${num} reservado.`);
+        } else {
+            let quantidade = prompt(`Quantos "${item.nome}" deseja vender?`, "1");
+            if (quantidade === null) return;
+            
+            quantidade = parseInt(quantidade);
+            if (isNaN(quantidade) || quantidade < 1) {
+                alert("Quantidade inválida!");
+                return;
+            }
+            
+            for (let i = 0; i < quantidade; i++) {
+                caixas[numero].carrinho.push({
+                    id: Date.now() + Math.random() + i,
+                    nome: item.nome,
+                    preco: item.preco,
+                    ticketNum: null,
+                    tipo: 'normal'
+                });
+            }
+            
+            atualizarCarrinhoCaixa(numero);
+            alert(`${quantidade}x "${item.nome}" adicionado(s)!`);
         }
     }
-    
-    async function finalizarVenda(numero) {
+
+    function adicionarTicketAvulso(numero, ticketNum) {
+        const ticketItems = cardapio.filter(item => item.tipo === 'ticket');
+        if (ticketItems.length === 0) {
+            alert("Nenhum item do tipo ticket cadastrado!");
+            return;
+        }
+        
+        let itemTicket = ticketItems[0];
+        if (ticketItems.length > 1) {
+            const escolha = prompt(`Qual produto com ticket?\n${ticketItems.map((item, idx) => `${idx + 1} - ${item.nome} (R$ ${item.preco.toFixed(2)})`).join('\n')}`);
+            const idx = parseInt(escolha) - 1;
+            if (!isNaN(idx) && idx >= 0 && idx < ticketItems.length) {
+                itemTicket = ticketItems[idx];
+            }
+        }
+        
+        caixas[numero].carrinho.push({
+            id: Date.now() + Math.random() + ticketNum,
+            nome: itemTicket.nome,
+            preco: itemTicket.preco,
+            ticketNum: ticketNum,
+            tipo: 'ticket'
+        });
+        
+        renderTicketsGridCaixa(numero);
+        atualizarCarrinhoCaixa(numero);
+        alert(`Ticket #${ticketNum} adicionado ao carrinho!`);
+    }
+
+    function removerDoCarrinhoPorTicket(numero, ticketNum) {
+        caixas[numero].carrinho = caixas[numero].carrinho.filter(item => item.ticketNum !== ticketNum);
+        renderTicketsGridCaixa(numero);
+        atualizarCarrinhoCaixa(numero);
+    }
+
+    function atualizarCarrinhoCaixa(numero) {
+        const div = document.getElementById(`cartItems_${numero}`);
+        const carrinho = caixas[numero].carrinho;
+        let total = 0;
+        
+        if (carrinho.length === 0) {
+            div.innerHTML = '<div class="empty-cart">🛒 Carrinho vazio</div>';
+        } else {
+            let grouped = {};
+            carrinho.forEach(item => {
+                const key = item.ticketNum ? `${item.nome}_${item.ticketNum}` : item.nome;
+                if (!grouped[key]) {
+                    grouped[key] = { ...item, quantidade: 0 };
+                }
+                grouped[key].quantidade++;
+                total += item.preco;
+            });
+            
+            div.innerHTML = Object.values(grouped).map(item => {
+                let displayText = item.quantidade > 1 && !item.ticketNum ? `${item.nome} x${item.quantidade}` : item.nome;
+                if (item.ticketNum) {
+                    displayText = `${item.nome} - Ticket #${item.ticketNum}`;
+                }
+                return `<div class="cart-item">
+                    <span>${displayText}</span>
+                    <div>
+                        <span style="margin-right: 15px;">R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+                        <button onclick="removerItemCarrinhoPorId(${numero}, ${item.id})" style="background:#C62828; color:white; border:none; border-radius:5px; padding:2px 8px; cursor:pointer;">✖</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+        
+        document.getElementById(`displayTotal_${numero}`).innerText = "R$ " + total.toFixed(2);
+        document.getElementById(`btnConfirmar_${numero}`).disabled = carrinho.length === 0;
+    }
+
+    function removerItemCarrinhoPorId(numero, id) {
+        caixas[numero].carrinho = caixas[numero].carrinho.filter(item => item.id !== id);
+        renderTicketsGridCaixa(numero);
+        atualizarCarrinhoCaixa(numero);
+    }
+
+    function finalizarVenda(numero) {
         const carrinho = caixas[numero].carrinho;
         if (carrinho.length === 0) {
             alert("Carrinho vazio!");
@@ -475,50 +566,48 @@
         const metodo = document.getElementById(`payMetodo_${numero}`).value;
         const total = carrinho.reduce((a, b) => a + b.preco, 0);
         
-        const { data: venda, error: errVenda } = await supabaseClient.from('vendas').insert({
-            caixa: numero,
-            operador: caixas[numero].operador,
-            metodo: metodo,
-            valor_total: total
-        }).select().single();
+        let itensGroup = {};
+        carrinho.forEach(item => {
+            const key = item.ticketNum ? `${item.nome}_${item.ticketNum}` : item.nome;
+            if (!itensGroup[key]) {
+                itensGroup[key] = { ...item, qtd: 0 };
+            }
+            itensGroup[key].qtd++;
+        });
         
-        if (errVenda) {
-            alert("Erro ao salvar venda: " + errVenda.message);
-            return;
-        }
+        let resumo = Object.values(itensGroup).map(item => {
+            if (item.qtd > 1 && !item.ticketNum) {
+                return `${item.nome} x${item.qtd}`;
+            } else if (item.ticketNum) {
+                return `${item.nome} #${item.ticketNum}`;
+            }
+            return item.nome;
+        }).join(', ');
         
-        for (let item of carrinho) {
-            await supabaseClient.from('venda_itens').insert({
-                venda_id: venda.id,
-                item_nome: item.nome,
-                item_preco: item.preco,
-                item_tipo: item.tipo,
-                ticket_numero: item.ticketNum || null
-            });
-            
+        // Marcar tickets como vendidos no global
+        carrinho.forEach(item => {
             if (item.ticketNum) {
-                await supabaseClient.from('tickets').update({ vendido: true }).eq('numero', item.ticketNum);
                 ticketsVendido[item.ticketNum] = true;
             }
-        }
+        });
         
-        let resumo = carrinho.map(item => item.ticketNum ? `${item.nome} #${item.ticketNum}` : item.nome).join(', ');
-        
-        const vendaObj = {
-            id: venda.id,
+        const venda = {
+            id: Date.now(),
             caixa: numero,
             operador: caixas[numero].operador,
             hora: new Date().toLocaleTimeString(),
             data: new Date().toLocaleDateString(),
             itens: resumo,
-            itensObj: [...carrinho],
+            itensObj: carrinho.map(item => ({ ...item })),
             metodo: metodo,
             valor: total
         };
         
-        caixas[numero].vendas.unshift(vendaObj);
-        caixas[numero].carrinho = [];
+        caixas[numero].vendas.unshift(venda);
+        todasVendas.unshift(venda);
         
+        // Limpar carrinho
+        caixas[numero].carrinho = [];
         renderTicketsGridCaixa(numero);
         atualizarCarrinhoCaixa(numero);
         atualizarRelatorioCaixa(numero);
@@ -526,8 +615,103 @@
         
         alert(`✅ Venda finalizada! R$ ${total.toFixed(2)}`);
     }
-    
-    async function addCardapioGlobal() {
+
+    function atualizarRelatorioCaixa(numero) {
+        const vendasCaixa = caixas[numero].vendas;
+        
+        let pix = 0, din = 0, car = 0;
+        vendasCaixa.forEach(v => {
+            if(v.metodo === 'PIX') pix += v.valor;
+            else if(v.metodo === 'DINHEIRO') din += v.valor;
+            else if(v.metodo === 'CARTÃO') car += v.valor;
+        });
+        
+        document.getElementById(`rPix_${numero}`).innerHTML = "R$ " + pix.toFixed(2);
+        document.getElementById(`rDin_${numero}`).innerHTML = "R$ " + din.toFixed(2);
+        document.getElementById(`rCar_${numero}`).innerHTML = "R$ " + car.toFixed(2);
+        document.getElementById(`rTot_${numero}`).innerHTML = "R$ " + (pix + din + car).toFixed(2);
+        
+        // Resumo por item
+        let contagem = {};
+        vendasCaixa.forEach(v => {
+            if (v.itensObj) {
+                v.itensObj.forEach(item => {
+                    const key = item.nome;
+                    if(!contagem[key]) contagem[key] = { qtd: 0, total: 0 };
+                    contagem[key].qtd++;
+                    contagem[key].total += item.preco;
+                });
+            }
+        });
+        
+        let htmlRel = "";
+        for(let nome in contagem) {
+            htmlRel += `<tr><td>${nome}</td><td>${contagem[nome].qtd}</td><td>R$ ${contagem[nome].total.toFixed(2)}</td></tr>`;
+        }
+        document.getElementById(`listaItensRel_${numero}`).innerHTML = htmlRel || '<tr><td colspan="3">Nenhuma venda</td></tr>';
+        
+        // Tickets
+        let totalTickets = 0;
+        let valorTickets = 0;
+        vendasCaixa.forEach(v => {
+            if (v.itensObj) {
+                v.itensObj.forEach(item => {
+                    if (item.tipo === 'ticket') {
+                        totalTickets++;
+                        valorTickets += item.preco;
+                    }
+                });
+            }
+        });
+        document.getElementById(`ticketsRelatorio_${numero}`).innerHTML = `<tr><td><strong>${totalTickets} tickets</strong></td><td><strong>R$ ${valorTickets.toFixed(2)}</strong></td></tr>`;
+        
+        // Histórico
+        const historicoDiv = document.getElementById(`historicoVendas_${numero}`);
+        if (historicoDiv) {
+            if (vendasCaixa.length === 0) {
+                historicoDiv.innerHTML = '<div style="text-align:center; padding:20px;">Nenhuma venda registrada</div>';
+            } else {
+                historicoDiv.innerHTML = vendasCaixa.map(venda => `
+                    <div class="venda-row">
+                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <span style="font-weight: bold;">🕐 ${venda.hora} - ${venda.data}</span>
+                            <span style="background: #E0E0E0; padding: 2px 8px; border-radius: 12px;">${venda.metodo}</span>
+                        </div>
+                        <div style="margin-top: 8px;"><strong>Itens:</strong> ${venda.itens}</div>
+                        <div style="margin-top: 5px; font-size: 18px; font-weight: bold; color: var(--verde);">Total: R$ ${venda.valor.toFixed(2)}</div>
+                    </div>
+                `).join('');
+            }
+        }
+    }
+
+    function atualizarStatsGlobais() {
+        const nVendidos = ticketsVendido.filter(t => t === true).length;
+        document.getElementById('dashVendidos').innerText = nVendidos;
+        document.getElementById('dashRestantes').innerText = 300 - nVendidos;
+        
+        // Mostrar status dos caixas
+        const status1 = caixas[1].ativo ? `👤 ${caixas[1].operador}` : '📭 Fechado';
+        const status2 = caixas[2].ativo ? `👤 ${caixas[2].operador}` : '📭 Fechado';
+        document.getElementById('dashUser').innerHTML = `CAIXA 01: ${status1}<br>CAIXA 02: ${status2}`;
+    }
+
+    function renderListaCardapioCaixa(numero) {
+        const container = document.getElementById(`listCardapio_${numero}`);
+        if (!container) return;
+        
+        container.innerHTML = cardapio.map((item) => `
+            <div class="cardapio-item">
+                <span><strong>${item.nome}</strong> - R$ ${item.preco.toFixed(2)} ${item.tipo === 'ticket' ? '🎫' : ''}</span>
+                <div class="cardapio-item-actions">
+                    <button class="btn-edit" onclick="abrirModalEditarGlobal(${item.id})">✏️ Editar</button>
+                    <button class="btn-delete" onclick="removerCardapioGlobal(${item.id})">🗑️ Remover</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function addCardapioGlobal() {
         let nome = document.getElementById('cNome').value.trim();
         let preco = parseFloat(document.getElementById('cPreco').value);
         let tipo = document.getElementById('cTipo').value;
@@ -535,10 +719,9 @@
         if(!nome) { alert("Digite o nome!"); return; }
         if(isNaN(preco) || preco <= 0) { alert("Preço válido!"); return; }
         
-        const { data, error } = await supabaseClient.from('cardapio').insert({ nome, preco, tipo }).select().single();
-        if (error) { alert("Erro: " + error.message); return; }
+        cardapio.push({ id: nextId++, nome, preco, tipo });
         
-        cardapio.push(data);
+        // Atualizar interfaces de ambos os caixas
         for(let i = 1; i <= 2; i++) {
             if(caixas[i].ativo) {
                 renderCardapioCaixa(i);
@@ -550,30 +733,38 @@
         document.getElementById('cPreco').value = "";
         alert(`✅ "${nome}" adicionado!`);
     }
-    
-    async function removerCardapioGlobal(id) {
+
+    function removerCardapioGlobal(id) {
         const item = cardapio.find(i => i.id === id);
-        if (!confirm(`Remover "${item.nome}"?`)) return;
-        
-        await supabaseClient.from('cardapio').delete().eq('id', id);
-        cardapio = cardapio.filter(i => i.id !== id);
-        for(let i = 1; i <= 2; i++) {
-            if(caixas[i].ativo) {
-                renderCardapioCaixa(i);
-                renderListaCardapioCaixa(i);
+        if (confirm(`Remover "${item.nome}"?`)) {
+            cardapio = cardapio.filter(i => i.id !== id);
+            for(let i = 1; i <= 2; i++) {
+                if(caixas[i].ativo) {
+                    renderCardapioCaixa(i);
+                    renderListaCardapioCaixa(i);
+                }
             }
         }
     }
-    
-    async function salvarEdicao() {
+
+    function abrirModalEditarGlobal(id) {
+        const item = cardapio.find(i => i.id === id);
+        if (!item) return;
+        
+        editandoId = id;
+        document.getElementById('editNome').value = item.nome;
+        document.getElementById('editPreco').value = item.preco;
+        document.getElementById('editTipo').value = item.tipo;
+        document.getElementById('editModal').style.display = 'block';
+    }
+
+    function salvarEdicao() {
         const novoNome = document.getElementById('editNome').value.trim();
         const novoPreco = parseFloat(document.getElementById('editPreco').value);
         const novoTipo = document.getElementById('editTipo').value;
         
         if (!novoNome) { alert("Digite o nome!"); return; }
         if (isNaN(novoPreco) || novoPreco <= 0) { alert("Preço válido!"); return; }
-        
-        await supabaseClient.from('cardapio').update({ nome: novoNome, preco: novoPreco, tipo: novoTipo }).eq('id', editandoId);
         
         const index = cardapio.findIndex(i => i.id === editandoId);
         if (index !== -1) {
@@ -588,288 +779,12 @@
         }
         fecharModal();
     }
-    
-    function selecionarCaixa(numero) {
-        caixaSelecionado = numero;
-        document.querySelectorAll('.caixa-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelector(`.caixa-btn.caixa${numero}`).classList.add('active');
-        document.getElementById('loginTitle').innerHTML = `Identificação do Caixa 0${numero}`;
-        
-        if (caixas[numero].ativo) {
-            mostrarCaixa(numero);
-        } else {
-            document.getElementById('loginArea').style.display = 'block';
-            document.getElementById('caixaArea').style.display = 'none';
-            document.getElementById('caixaArea').innerHTML = '';
-        }
+
+    function fecharModal() {
+        document.getElementById('editModal').style.display = 'none';
+        editandoId = null;
     }
-    
-    function iniciarCaixa() {
-        let operador = document.getElementById('operadorNome').value.trim();
-        if(!operador) { alert("Digite seu nome!"); return; }
-        
-        caixas[caixaSelecionado].ativo = true;
-        caixas[caixaSelecionado].operador = operador;
-        caixas[caixaSelecionado].carrinho = [];
-        if (!caixas[caixaSelecionado].vendas) caixas[caixaSelecionado].vendas = [];
-        
-        mostrarCaixa(caixaSelecionado);
-    }
-    
-    function mostrarCaixa(numero) {
-        document.getElementById('loginArea').style.display = 'none';
-        document.getElementById('caixaArea').style.display = 'block';
-        renderizarInterfaceCaixa(numero);
-        atualizarStatsGlobais();
-    }
-    
-    function renderizarInterfaceCaixa(numero) {
-        const container = document.getElementById('caixaArea');
-        const caixa = caixas[numero];
-        const corBg = numero === 1 ? '#E3F2FD' : '#FFF3E0';
-        
-        container.innerHTML = `
-            <div style="background: ${corBg}; padding: 10px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                <div><span class="caixa-indicator caixa${numero}-color"></span><strong>CAIXA 0${numero} - Operador: ${caixa.operador}</strong></div>
-                <button onclick="fecharCaixa(${numero})" style="background: #999; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">🔒 FECHAR CAIXA</button>
-            </div>
-            <div class="tabs no-print">
-                <button class="tab-btn active" onclick="showTabCaixa(${numero}, 'venda', this)">🛒 VENDER</button>
-                <button class="tab-btn" onclick="showTabCaixa(${numero}, 'tickets', this)">🎫 VER TICKETS</button>
-                <button class="tab-btn" onclick="showTabCaixa(${numero}, 'relatorio', this)">📊 RELATÓRIO</button>
-                <button class="tab-btn" onclick="showTabCaixa(${numero}, 'config', this)">⚙️ CARDÁPIO</button>
-            </div>
-            <div class="main-content">
-                <div id="venda_${numero}" class="tab-panel active">
-                    <div class="venda-grid">
-                        <div><h3 style="margin-bottom: 15px;">🍽️ Selecione o Item:</h3><div id="gridItens_${numero}" class="grid-itens"></div></div>
-                        <div class="cart-box">
-                            <h3>📋 Pedido Atual</h3><div id="cartItems_${numero}" style="margin-top: 15px; min-height: 100px;"></div>
-                            <div style="margin-top: 20px;">
-                                <label style="font-size: 12px; font-weight: bold;">💳 PAGAMENTO:</label>
-                                <select id="payMetodo_${numero}" style="width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px;">
-                                    <option value="PIX">💠 PIX</option><option value="DINHEIRO">💵 DINHEIRO</option><option value="CARTÃO">💳 CARTÃO</option>
-                                </select>
-                            </div>
-                            <div class="total-display" id="displayTotal_${numero}">R$ 0,00</div>
-                            <button class="btn-finalizar" id="btnConfirmar_${numero}" onclick="finalizarVenda(${numero})" disabled>CONFIRMAR VENDA</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="tickets_${numero}" class="tab-panel"><h3>🎫 Controle de Tickets (1 a 300)</h3><div class="info-box">💡 Tickets coloridos estão reservados no seu caixa. Vermelhos já vendidos.</div><div class="tickets-grid" id="ticketsGrid_${numero}"></div></div>
-                <div id="relatorio_${numero}" class="tab-panel">
-                    <div class="print-header">
-                        <div class="print-title">
-                            <h2>JOVENS SAGRADOS - PASTORAL DA JUVENTUDE</h2>
-                            <p>Relatório de Prestação de Contas - Caixa 0${numero}</p>
-                            <p id="printData_${numero}"></p>
-                        </div>
-                    </div>
-                    <div class="no-print" style="display: flex; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;"><h3>📈 Balanço do Caixa 0${numero}</h3><button onclick="imprimirRelatorio(${numero})" style="background:#333; color:white; padding:12px 25px; border:none; border-radius:5px; cursor:pointer;">🖨️ IMPRIMIR</button></div>
-                    <div class="resumo-caixa"><div><b>💠 PIX</b><br><span id="rPix_${numero}">R$ 0,00</span></div><div><b>💵 DINHEIRO</b><br><span id="rDin_${numero}">R$ 0,00</span></div><div><b>💳 CARTÃO</b><br><span id="rCar_${numero}">R$ 0,00</span></div><div style="background:#EEE;"><b>💰 TOTAL</b><br><b id="rTot_${numero}">R$ 0,00</b></div></div>
-                    <div class="section-title">1. Resumo de Vendas por Item</div><table style="width:100%; border-collapse: collapse;"><thead><tr><th>Item</th><th>Quantidade</th><th>Subtotal</th></tr></thead><tbody id="listaItensRel_${numero}"></tbody></table>
-                    <div class="section-title">2. Tickets Vendidos</div><table style="width:100%; border-collapse: collapse;"><thead><tr><th>Total de Tickets</th><th>Valor Total</th></tr></thead><tbody id="ticketsRelatorio_${numero}"></tbody></table>
-                    <div class="section-title">3. Histórico de Vendas</div><div id="historicoVendas_${numero}" style="margin-top:15px;"></div>
-                    <div class="footer-assinaturas"><div class="assinatura-linha">Responsável: ${caixa.operador}</div><div class="assinatura-linha">Visto da Coordenação</div></div>
-                </div>
-                <div id="config_${numero}" class="tab-panel no-print">
-                    <h3>⚙️ Gerenciar Cardápio</h3>
-                    <div class="config-grid"><input type="text" id="cNome" placeholder="Nome"><input type="number" id="cPreco" placeholder="Preço R$" step="0.01"><select id="cTipo"><option value="normal">Normal</option><option value="ticket">Ticket</option></select><button onclick="addCardapioGlobal()">➕ ADICIONAR</button></div>
-                    <div style="margin-top:20px;"><h4>📋 Cardápio Atual:</h4><div id="listCardapio_${numero}"></div></div>
-                </div>
-            </div>
-        `;
-        
-        renderCardapioCaixa(numero);
-        renderListaCardapioCaixa(numero);
-        renderTicketsGridCaixa(numero);
-        atualizarCarrinhoCaixa(numero);
-        atualizarRelatorioCaixa(numero);
-    }
-    
-    function renderCardapioCaixa(numero) {
-        const grid = document.getElementById(`gridItens_${numero}`);
-        if (!grid) return;
-        grid.innerHTML = cardapio.map(item => `
-            <div class="item-card" onclick="adicionarAoCarrinho(${numero}, ${item.id})">
-                <div class="item-emoji">${item.tipo === 'ticket' ? '🍲' : '🥤'}</div>
-                <div class="item-nome">${item.nome}</div>
-                <div class="item-preco">R$ ${item.preco.toFixed(2)}</div>
-                ${item.tipo === 'ticket' ? '<div class="item-badge">🎫 Inclui Ticket</div>' : ''}
-            </div>
-        `).join('');
-    }
-    
-    function renderListaCardapioCaixa(numero) {
-        const container = document.getElementById(`listCardapio_${numero}`);
-        if (!container) return;
-        container.innerHTML = cardapio.map(item => `
-            <div class="cardapio-item">
-                <span><strong>${item.nome}</strong> - R$ ${item.preco.toFixed(2)} ${item.tipo === 'ticket' ? '🎫' : ''}</span>
-                <div class="cardapio-item-actions">
-                    <button class="btn-edit" onclick="abrirModalEditarGlobal(${item.id})">✏️ Editar</button>
-                    <button class="btn-delete" onclick="removerCardapioGlobal(${item.id})">🗑️ Remover</button>
-                </div>
-            </div>
-        `).join('');
-    }
-    
-    function renderTicketsGridCaixa(numero) {
-        const grid = document.getElementById(`ticketsGrid_${numero}`);
-        if (!grid) return;
-        let html = '';
-        for (let i = 1; i <= 300; i++) {
-            const isSold = ticketsVendido[i];
-            const isInCaixa1 = caixas[1].carrinho.some(item => item.ticketNum === i);
-            const isInCaixa2 = caixas[2].carrinho.some(item => item.ticketNum === i);
-            let statusClass = 'ticket-available', statusText = `${i}`, acao = '';
-            if (isSold) { statusClass = 'ticket-sold'; statusText = `❌ ${i}`; }
-            else if (isInCaixa1 && numero === 1) { statusClass = 'ticket-selected-caixa1'; statusText = `🛒 ${i}`; acao = `onclick="removerDoCarrinhoPorTicket(${numero}, ${i})" title="Remover"`; }
-            else if (isInCaixa2 && numero === 2) { statusClass = 'ticket-selected-caixa2'; statusText = `🛒 ${i}`; acao = `onclick="removerDoCarrinhoPorTicket(${numero}, ${i})" title="Remover"`; }
-            else if (isInCaixa1 || isInCaixa2) { statusClass = 'ticket-sold'; statusText = `🔒 ${i}`; }
-            else { acao = `onclick="adicionarTicketAvulso(${numero}, ${i})" title="Vender ticket"`; }
-            html += `<div class="ticket-number ${statusClass}" ${acao}>${statusText}</div>`;
-        }
-        grid.innerHTML = html;
-    }
-    
-    function adicionarAoCarrinho(numero, itemId) {
-        const item = cardapio.find(i => i.id === itemId);
-        if (!item) return;
-        if (item.tipo === 'ticket') {
-            let ticketNumero = prompt(`🍲 ${item.nome} - NÚMERO DO TICKET (1 a 300):`);
-            if (!ticketNumero) return;
-            const num = parseInt(ticketNumero);
-            if (isNaN(num) || num < 1 || num > 300) { alert("❌ Número inválido!"); return; }
-            if (ticketsVendido[num]) { alert(`❌ Ticket #${num} JÁ VENDIDO!`); return; }
-            const outroCaixa = numero === 1 ? 2 : 1;
-            if (caixas[outroCaixa].carrinho.some(item => item.ticketNum === num)) { alert(`❌ Ticket #${num} reservado no outro caixa!`); return; }
-            if (caixas[numero].carrinho.some(item => item.ticketNum === num)) { alert(`❌ Ticket #${num} já no carrinho!`); return; }
-            caixas[numero].carrinho.push({ id: Date.now() + Math.random(), nome: item.nome, preco: item.preco, ticketNum: num, tipo: 'ticket' });
-            renderTicketsGridCaixa(numero);
-            atualizarCarrinhoCaixa(numero);
-            alert(`✅ ${item.nome} - Ticket #${num} reservado.`);
-        } else {
-            let qtd = parseInt(prompt(`Quantos "${item.nome}"?`, "1"));
-            if (isNaN(qtd) || qtd < 1) return;
-            for (let i = 0; i < qtd; i++) caixas[numero].carrinho.push({ id: Date.now() + Math.random() + i, nome: item.nome, preco: item.preco, ticketNum: null, tipo: 'normal' });
-            atualizarCarrinhoCaixa(numero);
-            alert(`${qtd}x "${item.nome}" adicionado!`);
-        }
-    }
-    
-    function adicionarTicketAvulso(numero, ticketNum) {
-        const ticketItems = cardapio.filter(item => item.tipo === 'ticket');
-        if (ticketItems.length === 0) { alert("Nenhum item com ticket cadastrado!"); return; }
-        let itemTicket = ticketItems[0];
-        if (ticketItems.length > 1) {
-            const escolha = prompt(`Qual produto?\n${ticketItems.map((item, idx) => `${idx+1} - ${item.nome} (R$ ${item.preco})`).join('\n')}`);
-            const idx = parseInt(escolha) - 1;
-            if (!isNaN(idx) && idx >= 0 && idx < ticketItems.length) itemTicket = ticketItems[idx];
-        }
-        caixas[numero].carrinho.push({ id: Date.now() + Math.random(), nome: itemTicket.nome, preco: itemTicket.preco, ticketNum: ticketNum, tipo: 'ticket' });
-        renderTicketsGridCaixa(numero);
-        atualizarCarrinhoCaixa(numero);
-        alert(`Ticket #${ticketNum} adicionado!`);
-    }
-    
-    function removerDoCarrinhoPorTicket(numero, ticketNum) {
-        caixas[numero].carrinho = caixas[numero].carrinho.filter(item => item.ticketNum !== ticketNum);
-        renderTicketsGridCaixa(numero);
-        atualizarCarrinhoCaixa(numero);
-    }
-    
-    function removerItemCarrinhoPorId(numero, id) {
-        caixas[numero].carrinho = caixas[numero].carrinho.filter(item => item.id !== id);
-        renderTicketsGridCaixa(numero);
-        atualizarCarrinhoCaixa(numero);
-    }
-    
-    function atualizarCarrinhoCaixa(numero) {
-        const div = document.getElementById(`cartItems_${numero}`);
-        const carrinho = caixas[numero].carrinho;
-        let total = 0;
-        if (carrinho.length === 0) {
-            div.innerHTML = '<div class="empty-cart">🛒 Carrinho vazio</div>';
-        } else {
-            let grouped = {};
-            carrinho.forEach(item => {
-                const key = item.ticketNum ? `${item.nome}_${item.ticketNum}` : item.nome;
-                if (!grouped[key]) grouped[key] = { ...item, quantidade: 0 };
-                grouped[key].quantidade++;
-                total += item.preco;
-            });
-            div.innerHTML = Object.values(grouped).map(item => {
-                let displayText = item.quantidade > 1 && !item.ticketNum ? `${item.nome} x${item.quantidade}` : item.nome;
-                if (item.ticketNum) displayText = `${item.nome} - Ticket #${item.ticketNum}`;
-                return `<div class="cart-item"><span>${displayText}</span><div><span style="margin-right:15px;">R$ ${(item.preco * item.quantidade).toFixed(2)}</span><button onclick="removerItemCarrinhoPorId(${numero}, ${item.id})" style="background:#C62828; color:white; border:none; border-radius:5px; padding:2px 8px; cursor:pointer;">✖</button></div></div>`;
-            }).join('');
-        }
-        document.getElementById(`displayTotal_${numero}`).innerText = "R$ " + total.toFixed(2);
-        const btn = document.getElementById(`btnConfirmar_${numero}`);
-        if (btn) btn.disabled = carrinho.length === 0;
-    }
-    
-    function atualizarRelatorioCaixa(numero) {
-        const vendasCaixa = caixas[numero].vendas;
-        let pix = 0, din = 0, car = 0;
-        vendasCaixa.forEach(v => { if(v.metodo === 'PIX') pix += v.valor; else if(v.metodo === 'DINHEIRO') din += v.valor; else if(v.metodo === 'CARTÃO') car += v.valor; });
-        
-        const rPix = document.getElementById(`rPix_${numero}`);
-        const rDin = document.getElementById(`rDin_${numero}`);
-        const rCar = document.getElementById(`rCar_${numero}`);
-        const rTot = document.getElementById(`rTot_${numero}`);
-        
-        if (rPix) rPix.innerHTML = "R$ " + pix.toFixed(2);
-        if (rDin) rDin.innerHTML = "R$ " + din.toFixed(2);
-        if (rCar) rCar.innerHTML = "R$ " + car.toFixed(2);
-        if (rTot) rTot.innerHTML = "R$ " + (pix+din+car).toFixed(2);
-        
-        let contagem = {};
-        vendasCaixa.forEach(v => { if(v.itensObj) v.itensObj.forEach(item => { const key = item.nome; if(!contagem[key]) contagem[key] = { qtd:0, total:0 }; contagem[key].qtd++; contagem[key].total += item.preco; }); });
-        let htmlRel = "";
-        for(let nome in contagem) htmlRel += `<tr><td>${nome}</td><td>${contagem[nome].qtd}</td><td>R$ ${contagem[nome].total.toFixed(2)}</td></tr>`;
-        const listaItens = document.getElementById(`listaItensRel_${numero}`);
-        if (listaItens) listaItens.innerHTML = htmlRel || '<tr><td colspan="3">Nenhuma venda</td>' + '</tr>';
-        
-        let totalTickets = 0, valorTickets = 0;
-        vendasCaixa.forEach(v => { if(v.itensObj) v.itensObj.forEach(item => { if(item.tipo === 'ticket') { totalTickets++; valorTickets += item.preco; } }); });
-        const ticketsRel = document.getElementById(`ticketsRelatorio_${numero}`);
-        if (ticketsRel) ticketsRel.innerHTML = `<tr><td><strong>${totalTickets} tickets</strong></td><td><strong>R$ ${valorTickets.toFixed(2)}</strong></td></tr>`;
-        
-        const historicoDiv = document.getElementById(`historicoVendas_${numero}`);
-        if (historicoDiv) historicoDiv.innerHTML = vendasCaixa.length === 0 ? '<div style="text-align:center;padding:20px;">Nenhuma venda</div>' : vendasCaixa.map(v => `<div class="venda-row"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;"><span>🕐 ${v.hora} - ${v.data}</span><span style="background:#E0E0E0;padding:2px 8px;border-radius:12px;">${v.metodo}</span></div><div><strong>Itens:</strong> ${v.itens}</div><div style="font-size:18px;font-weight:bold;color:var(--verde);">Total: R$ ${v.valor.toFixed(2)}</div></div>`).join('');
-    }
-    
-    function atualizarStatsGlobais() {
-        const nVendidos = ticketsVendido.filter(t => t === true).length;
-        const dashVendidos = document.getElementById('dashVendidos');
-        const dashRestantes = document.getElementById('dashRestantes');
-        const dashUser = document.getElementById('dashUser');
-        
-        if (dashVendidos) dashVendidos.innerText = nVendidos;
-        if (dashRestantes) dashRestantes.innerText = 300 - nVendidos;
-        const status1 = caixas[1].ativo ? `👤 ${caixas[1].operador}` : '📭 Fechado';
-        const status2 = caixas[2].ativo ? `👤 ${caixas[2].operador}` : '📭 Fechado';
-        if (dashUser) dashUser.innerHTML = `CX1: ${status1}<br>CX2: ${status2}`;
-    }
-    
-    function abrirModalEditarGlobal(id) {
-        const item = cardapio.find(i => i.id === id);
-        if (!item) return;
-        editandoId = id;
-        document.getElementById('editNome').value = item.nome;
-        document.getElementById('editPreco').value = item.preco;
-        document.getElementById('editTipo').value = item.tipo;
-        document.getElementById('editModal').style.display = 'block';
-    }
-    
-    function fecharModal() { 
-        const modal = document.getElementById('editModal');
-        if (modal) modal.style.display = 'none'; 
-        editandoId = null; 
-    }
-    
+
     function fecharCaixa(numero) {
         if(confirm(`Fechar caixa 0${numero}?`)) {
             caixas[numero].ativo = false;
@@ -878,59 +793,31 @@
             atualizarStatsGlobais();
         }
     }
-    
+
     function showTabCaixa(numero, tabId, btn) {
-        const panels = document.querySelectorAll(`#venda_${numero}, #tickets_${numero}, #relatorio_${numero}, #config_${numero}`);
-        panels.forEach(p => p.classList.remove('active'));
-        const btns = document.querySelectorAll(`#caixaArea .tab-btn`);
-        btns.forEach(b => b.classList.remove('active'));
-        const activePanel = document.getElementById(`${tabId}_${numero}`);
-        if (activePanel) activePanel.classList.add('active');
-        if (btn) btn.classList.add('active');
-        if (tabId === 'relatorio') { 
-            atualizarRelatorioCaixa(numero); 
-            const printData = document.getElementById(`printData_${numero}`);
-            if (printData) printData.innerHTML = "📅 " + new Date().toLocaleString();
+        document.querySelectorAll(`#venda_${numero}, #tickets_${numero}, #relatorio_${numero}, #config_${numero}`).forEach(p => p.classList.remove('active'));
+        document.querySelectorAll(`#caixaArea .tab-btn`).forEach(b => b.classList.remove('active'));
+        document.getElementById(`${tabId}_${numero}`).classList.add('active');
+        if(btn) btn.classList.add('active');
+        
+        if (tabId === 'relatorio') {
+            atualizarRelatorioCaixa(numero);
+            document.getElementById(`printData_${numero}`).innerHTML = "📅 " + new Date().toLocaleString();
         }
-        if (tabId === 'tickets') renderTicketsGridCaixa(numero);
+        if (tabId === 'tickets') {
+            renderTicketsGridCaixa(numero);
+        }
     }
-    
+
     function imprimirRelatorio(numero) {
-        const printData = document.getElementById(`printData_${numero}`);
-        if (printData) printData.innerHTML = "📅 " + new Date().toLocaleString();
+        document.getElementById(`printData_${numero}`).innerHTML = "📅 " + new Date().toLocaleString();
         atualizarRelatorioCaixa(numero);
         setTimeout(() => window.print(), 100);
     }
-    
-    function limparConfig() {
-        if(confirm("Deseja trocar as configurações do Supabase?")) {
-            localStorage.removeItem('supabase_url');
-            localStorage.removeItem('supabase_key');
-            location.reload();
-        }
-    }
-    
-    // Expor funções globalmente
-    window.selecionarCaixa = selecionarCaixa;
-    window.iniciarCaixa = iniciarCaixa;
-    window.finalizarVenda = finalizarVenda;
-    window.addCardapioGlobal = addCardapioGlobal;
-    window.removerCardapioGlobal = removerCardapioGlobal;
-    window.salvarEdicao = salvarEdicao;
-    window.fecharModal = fecharModal;
-    window.fecharCaixa = fecharCaixa;
-    window.showTabCaixa = showTabCaixa;
-    window.imprimirRelatorio = imprimirRelatorio;
-    window.adicionarAoCarrinho = adicionarAoCarrinho;
-    window.adicionarTicketAvulso = adicionarTicketAvulso;
-    window.removerDoCarrinhoPorTicket = removerDoCarrinhoPorTicket;
-    window.removerItemCarrinhoPorId = removerItemCarrinhoPorId;
-    window.abrirModalEditarGlobal = abrirModalEditarGlobal;
-    window.limparConfig = limparConfig;
-    
-    window.onclick = function(event) { 
+
+    window.onclick = function(event) {
         const modal = document.getElementById('editModal');
-        if (event.target === modal) fecharModal(); 
+        if (event.target === modal) fecharModal();
     }
 </script>
 </body>
