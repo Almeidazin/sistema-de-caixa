@@ -82,7 +82,7 @@
             .section-title { background: #EEE !important; padding: 8px; font-weight: bold; border: 1px solid #000; margin: 20px 0 10px 0; }
             table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
             th, td { border: 1px solid #000; padding: 8px; text-align: left; font-size: 11px; }
-            .resumo-caixa { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 20px; }
+            .resumo-caixa { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-bottom: 20px; }
             .resumo-caixa div { border: 1px solid #000; padding: 10px; text-align: center; }
             .footer-assinaturas { margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
             .assinatura-linha { border-top: 1px solid #000; text-align: center; padding-top: 5px; font-size: 12px; }
@@ -125,8 +125,8 @@
 
 <div class="header no-print">
     <div class="logo-box">
-    <img src="wgkmTfD - Imgur.png" alt="Logo Jovens Sagrados" style="width: 70px; height: auto; border-radius: 50%;">
-</div>
+        <img src="wgkmTfD - Imgur.png" alt="Logo Jovens Sagrados" style="width: 70px; height: auto; border-radius: 50%;">
+    </div>
     <h1>JOVENS SAGRADOS</h1>
     <p>PASTORAL DA JUVENTUDE - SISTEMA DE 2 CAIXAS</p>
 </div>
@@ -269,7 +269,8 @@
                             <div style="margin-top: 20px;">
                                 <label style="font-size: 12px; font-weight: bold;">💳 PAGAMENTO:</label>
                                 <select id="payMetodo_${numero}" style="width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; font-weight: bold;">
-                                    <option value="PIX">💠 PIX</option>
+                                    <option value="PIX">💠 PIX (QR Code)</option>
+                                    <option value="PIX_MAQUINA">📱 PIX MAQUININHA</option>
                                     <option value="DINHEIRO">💵 DINHEIRO</option>
                                     <option value="CARTÃO">💳 CARTÃO</option>
                                 </select>
@@ -305,7 +306,8 @@
                     </div>
 
                     <div class="resumo-caixa">
-                        <div><b>💠 PIX</b><br><span id="rPix_${numero}">R$ 0,00</span></div>
+                        <div><b>💠 PIX QR Code</b><br><span id="rPix_${numero}">R$ 0,00</span></div>
+                        <div><b>📱 PIX Maquininha</b><br><span id="rPixMaq_${numero}">R$ 0,00</span></div>
                         <div><b>💵 DINHEIRO</b><br><span id="rDin_${numero}">R$ 0,00</span></div>
                         <div><b>💳 CARTÃO</b><br><span id="rCar_${numero}">R$ 0,00</span></div>
                         <div style="background: #EEE;"><b>💰 TOTAL</b><br><b id="rTot_${numero}">R$ 0,00</b></div>
@@ -619,17 +621,19 @@
     function atualizarRelatorioCaixa(numero) {
         const vendasCaixa = caixas[numero].vendas;
         
-        let pix = 0, din = 0, car = 0;
+        let pix = 0, pixMaq = 0, din = 0, car = 0;
         vendasCaixa.forEach(v => {
             if(v.metodo === 'PIX') pix += v.valor;
+            else if(v.metodo === 'PIX_MAQUINA') pixMaq += v.valor;
             else if(v.metodo === 'DINHEIRO') din += v.valor;
             else if(v.metodo === 'CARTÃO') car += v.valor;
         });
         
         document.getElementById(`rPix_${numero}`).innerHTML = "R$ " + pix.toFixed(2);
+        document.getElementById(`rPixMaq_${numero}`).innerHTML = "R$ " + pixMaq.toFixed(2);
         document.getElementById(`rDin_${numero}`).innerHTML = "R$ " + din.toFixed(2);
         document.getElementById(`rCar_${numero}`).innerHTML = "R$ " + car.toFixed(2);
-        document.getElementById(`rTot_${numero}`).innerHTML = "R$ " + (pix + din + car).toFixed(2);
+        document.getElementById(`rTot_${numero}`).innerHTML = "R$ " + (pix + pixMaq + din + car).toFixed(2);
         
         // Resumo por item
         let contagem = {};
@@ -671,16 +675,23 @@
             if (vendasCaixa.length === 0) {
                 historicoDiv.innerHTML = '<div style="text-align:center; padding:20px;">Nenhuma venda registrada</div>';
             } else {
-                historicoDiv.innerHTML = vendasCaixa.map(venda => `
+                historicoDiv.innerHTML = vendasCaixa.map(venda => {
+                    let metodoDisplay = venda.metodo;
+                    if (metodoDisplay === 'PIX') metodoDisplay = '💠 PIX QR Code';
+                    if (metodoDisplay === 'PIX_MAQUINA') metodoDisplay = '📱 PIX Maquininha';
+                    if (metodoDisplay === 'DINHEIRO') metodoDisplay = '💵 DINHEIRO';
+                    if (metodoDisplay === 'CARTÃO') metodoDisplay = '💳 CARTÃO';
+                    
+                    return `
                     <div class="venda-row">
                         <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
                             <span style="font-weight: bold;">🕐 ${venda.hora} - ${venda.data}</span>
-                            <span style="background: #E0E0E0; padding: 2px 8px; border-radius: 12px;">${venda.metodo}</span>
+                            <span style="background: #E0E0E0; padding: 2px 8px; border-radius: 12px;">${metodoDisplay}</span>
                         </div>
                         <div style="margin-top: 8px;"><strong>Itens:</strong> ${venda.itens}</div>
                         <div style="margin-top: 5px; font-size: 18px; font-weight: bold; color: var(--verde);">Total: R$ ${venda.valor.toFixed(2)}</div>
                     </div>
-                `).join('');
+                `}).join('');
             }
         }
     }
